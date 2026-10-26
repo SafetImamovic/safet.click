@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { title, description, status, stack } = project.data;
+---
+
+<a class="card" href={`/projects/${project.id}/`}>
+  <div class="top">
+    <h3>{title}</h3>
+    <span class={`status ${status}`}>{status}</span>
+  </div>
+  <p class="muted">{description}</p>
+  <div>{stack.map((s) => <span class="tag">{s}</span>)}</div>
+</a>
+
+<style>
+  .card {
+    display: block;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover {
+    color: inherit;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  p {
+    margin: 0.4rem 0 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .status {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .status::before {
+    content: "●";
+    margin-right: 0.35rem;
+  }
+  .status.active::before {
+    color: #22c55e;
+  }
+  .status.shipped::before {
+    color: #3b82f6;
+  }
+  .status.paused::before {
+    color: #eab308;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import PostList from "../components/PostList.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getPosts, getProjects } from "../lib/content";
+import { SOCIALS } from "../consts";
+
+const posts = (await getPosts()).slice(0, 5);
+const projects = (await getProjects()).slice(0, 4);
+---
+
+<Base>
+  <section class="hero">
+    <p class="eyebrow">Hi, I'm</p>
+    <h1>Safet Imamović</h1>
+    <p class="lead">
+      Software engineer and teaching assistant at the Polytechnic Faculty, University of Zenica. I build tools people
+      use: a resume builder, Minecraft mods, and the occasional over-engineered automation.
+    </p>
+    <p class="socials">
+      {SOCIALS.map((s) => <a href={s.href}>{s.name} ↗</a>)}
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <a href="/projects">all projects →</a>
+    </div>
+    <div class="grid">
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Writing</h2>
+      <a href="/blog">all posts →</a>
+    </div>
+    <PostList posts={posts} />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    margin-top: 3rem;
+  }
+  .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 36rem;
+  }
+  .socials {
+    display: flex;
+    gap: 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+</style>
