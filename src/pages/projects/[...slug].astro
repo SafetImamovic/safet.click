@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import KofiButton from "../../components/KofiButton.astro";
 import { getProjects } from "../../lib/content";
 
 export async function getStaticPaths() {
@@ -10,23 +11,34 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, description, status, stack, repo, demo } = project.data;
+const { title, description, status, kind, stack, repo, demo, links, image, imageAlt, kofi } = project.data;
 ---
 
 <Base title={title} description={description}>
   <article class="section">
     <a href="/projects" class="back mono">← projects</a>
     <h1>{title}</h1>
-    <p class="muted">{description}</p>
-    <p class="links mono">
-      <span>status: {status}</span>
-      {repo && <a href={repo}>source ↗</a>}
-      {demo && <a href={demo}>live ↗</a>}
-    </p>
+    {kind && <p class="eyebrow">{kind}</p>}
+    <p class="lead muted">{description}</p>
+    <div class="btn-row">
+      {demo && <a class="btn primary" href={demo}>Open live ↗</a>}
+      {repo && <a class="btn" href={repo}>Source ↗</a>}
+      {links.map((l) => <a class="btn" href={l.href}>{l.label} ↗</a>)}
+    </div>
+    <p class="meta mono muted">status: {status}</p>
     <div>{stack.map((s) => <span class="tag">{s}</span>)}</div>
+    {image && <img class="hero" src={image} alt={imageAlt ?? ""} />}
     <div class="prose">
       <Content />
     </div>
+    {
+      kofi && (
+        <div class="support">
+          <p>Enjoying the mod? It's free and MIT licensed. A coffee keeps updates coming.</p>
+          <KofiButton />
+        </div>
+      )
+    }
   </article>
 </Base>
 
@@ -39,9 +51,27 @@ const { title, description, status, stack, repo, demo } = project.data;
   h1 {
     margin-top: 1rem;
   }
-  .links {
-    display: flex;
-    gap: 1.25rem;
-    font-size: 0.85rem;
+  .lead {
+    font-size: 1.1rem;
+  }
+  .meta {
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem;
+  }
+  .hero {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-top: 1.5rem;
+  }
+  .support {
+    margin-top: 3rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+  }
+  .support p {
+    margin: 0 0 0.75rem;
   }
 </style>

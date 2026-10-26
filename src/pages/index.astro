@@ -2,11 +2,14 @@
 import Base from "../layouts/Base.astro";
 import PostList from "../components/PostList.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import ProjectRow from "../components/ProjectRow.astro";
 import { getPosts, getProjects } from "../lib/content";
-import { SOCIALS } from "../consts";
+import { LINKS, SOCIALS } from "../consts";
 
 const posts = (await getPosts()).slice(0, 5);
-const projects = (await getProjects()).slice(0, 4);
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured);
+const more = projects.filter((p) => !p.data.featured).slice(0, 5);
 ---
 
 <Base>
@@ -14,9 +17,20 @@ const projects = (await getProjects()).slice(0, 4);
     <p class="eyebrow">Hi, I'm</p>
     <h1>Safet Imamović</h1>
     <p class="lead">
-      Software engineer and teaching assistant at the Polytechnic Faculty, University of Zenica. I build tools people
-      use: a resume builder, Minecraft mods, and the occasional over-engineered automation.
+      Software engineer and teaching assistant at the <a href={LINKS.ptf}>Polytechnic Faculty</a>,
+      <a href={LINKS.unze}>University of Zenica</a>. I build <a href="/projects/enginecv/">EngineCV</a>, a local-first
+      resume builder, along with Minecraft mods played on Modrinth and CurseForge, and render engines in Rust and C.
     </p>
+    <ul class="facts mono">
+      <li>→ MSc student, Software Engineering, PTF UNZE</li>
+      <li>→ TA for Object-Oriented Programming Languages</li>
+      <li>→ Published: <a href="/publications">MARL for mobile robot coordination</a> (Springer LNNS)</li>
+    </ul>
+    <div class="btn-row">
+      <a class="btn primary" href="/projects">See projects</a>
+      <a class="btn" href="/cv">CV</a>
+      <a class="btn" href="/cv.pdf">Download PDF</a>
+    </div>
     <p class="socials">
       {SOCIALS.map((s) => <a href={s.href}>{s.name} ↗</a>)}
     </p>
@@ -24,12 +38,20 @@ const projects = (await getProjects()).slice(0, 4);
 
   <section class="section">
     <div class="section-head">
-      <h2>Projects</h2>
+      <h2>Featured projects</h2>
       <a href="/projects">all projects →</a>
     </div>
     <div class="grid">
-      {projects.map((p) => <ProjectCard project={p} />)}
+      {featured.map((p) => <ProjectCard project={p} />)}
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Also built</h2>
+      <a href="/projects">more →</a>
+    </div>
+    {more.map((p) => <ProjectRow project={p} />)}
   </section>
 
   <section class="section">
@@ -48,13 +70,21 @@ const projects = (await getProjects()).slice(0, 4);
   .lead {
     font-size: 1.15rem;
     color: var(--muted);
-    max-width: 36rem;
+    max-width: 38rem;
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0;
+    font-size: 0.85rem;
+    line-height: 1.9;
   }
   .socials {
     display: flex;
-    gap: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
     font-family: var(--mono);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   .grid {
     display: grid;

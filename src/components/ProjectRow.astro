@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { title, description, stack, kind } = project.data;
+---
+
+<a class="row" href={`/projects/${project.id}/`}>
+  <div>
+    <span class="title">{title}</span>
+    {kind && <span class="kind mono">{kind}</span>}
+    <p class="muted">{description}</p>
+  </div>
+  <span class="stack mono">{stack.slice(0, 3).join(" · ")}</span>
+</a>
+
+<style>
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed var(--border);
+    text-decoration: none;
+  }
+  .row:hover .title {
+    color: var(--accent);
+  }
+  .title {
+    font-weight: 600;
+  }
+  .kind {
+    margin-left: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--accent);
+  }
+  p {
+    margin: 0.2rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .stack {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+  }
+  @media (max-width: 560px) {
+    .row {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+  }
+</style>

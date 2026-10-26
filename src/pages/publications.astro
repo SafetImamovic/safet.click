@@ -1,0 +1,74 @@
+---
+import Base from "../layouts/Base.astro";
+
+const publications = [
+  {
+    title: "Multi-agent Reinforcement Learning for Autonomous Mobile Robot Coordination",
+    authors: "Safet Imamović, Nermin Goran",
+    venue:
+      "Advanced Technologies, Systems, and Applications XI (IAT 2026), Vol. 2. Lecture Notes in Networks and Systems, vol. 2278, Ch. 15. Springer.",
+    year: 2026,
+    summary:
+      "Cooperative cleaning robots in a shared grid world, compared across centralised and decentralised learners: centralised PPO and joint DQN (Stable-Baselines3) against custom PyTorch IDQN, MAPPO and QMIX. Measures room coverage, steps to completion and coordination behaviour across training checkpoints.",
+    links: [
+      { label: "Code", href: "https://github.com/SafetImamovic/MultiAgentRobot" },
+      { label: "Project page", href: "/projects/multi-agent-robot/" },
+      // { label: "DOI", href: "https://doi.org/..." },
+    ],
+  },
+];
+---
+
+<Base title="Publications" description="Peer-reviewed papers and research.">
+  <section class="section">
+    <h1>Publications</h1>
+    <p class="muted">Peer-reviewed papers and research.</p>
+  </section>
+
+  {
+    publications.map((p) => (
+      <article class="pub">
+        <p class="eyebrow">{p.year} · Conference paper</p>
+        <h2>{p.title}</h2>
+        <p class="muted">{p.authors}</p>
+        <p class="venue">{p.venue}</p>
+        <p>{p.summary}</p>
+        <div class="btn-row">
+          {p.links.map((l) => (
+            <a class="btn" href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </article>
+    ))
+  }
+
+  <section class="section">
+    <div class="section-head"><h2>Other research</h2></div>
+    <p>
+      <a href="/projects/postgres-valkey-tpch/">PostgreSQL indexing vs. Valkey caching on TPC-H</a>: a reproducible benchmark
+      that crosses relational indexing with an in-memory cache tier, tested at SF10.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .pub {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+  }
+  .pub h2 {
+    font-size: 1.25rem;
+    margin: 0.25rem 0 0.4rem;
+  }
+  .pub p {
+    margin: 0.35rem 0;
+  }
+  .venue {
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+</style>

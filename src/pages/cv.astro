@@ -1,0 +1,272 @@
+---
+import Base from "../layouts/Base.astro";
+import { LINKS } from "../consts";
+
+const experience = [
+  {
+    role: "Teaching Assistant",
+    org: "University of Zenica, Polytechnic Faculty",
+    href: LINKS.ptf,
+    when: "Sep 2026 – present",
+    where: "Zenica",
+    points: [
+      "Lab sessions for Object-Oriented Programming Languages (C#/.NET): OOP concepts, theory and practice.",
+    ],
+  },
+  {
+    role: "Backend Developer Intern",
+    org: "Symphony",
+    href: "https://symphony.is",
+    when: "Aug 2024 – Sep 2024",
+    where: "Sarajevo (remote)",
+    points: [
+      "Built a RESTful student-management API with FastAPI, Pydantic validation and Alembic migrations on PostgreSQL.",
+      "Wrote unit and integration tests with pytest; tested API workflows in Postman; containerised with Docker.",
+    ],
+    link: { label: "Project", href: "https://github.com/SafetImamovic/Student-Management-System" },
+  },
+];
+
+const education = [
+  {
+    degree: "MSc, Software Engineering",
+    when: "2025 – present",
+    note: "In progress.",
+  },
+  {
+    degree: "BSc, Software Engineering",
+    when: "2022 – 2025",
+    note: "Thesis in Computer Graphics: a web and native 3D render engine in Rust and WebGPU (Oxide).",
+    thesis: "/projects/oxide/",
+  },
+];
+
+const teaching = [
+  { course: "Object-Oriented Programming Languages", term: "Winter semester", detail: "C# / .NET labs, 2nd year" },
+  { course: "Advanced Programming Techniques", term: "Summer semester", detail: "Labs" },
+  { course: "Computer Graphics", term: "Summer semester", detail: "Labs" },
+];
+
+const awards = [
+  {
+    name: "ICSS World Cup 2025: Third Place",
+    issuer: "ISINEG",
+    when: "Oct 2025",
+    href: "https://unze.ba/rektor-univerziteta-u-zenici-uprilicio-prijem-za-studente-koji-su-osvojili-trecu-nagradu-na-medjunarodnom-takmicenju-icss-world-cup-2025/",
+  },
+];
+
+const certificates = [
+  {
+    name: "JavaScript Algorithms and Data Structures",
+    issuer: "freeCodeCamp",
+    when: "Jun 2024",
+    href: "https://freecodecamp.org/certification/safet-imamovic/javascript-algorithms-and-data-structures-v8",
+  },
+  {
+    name: "Relational Database",
+    issuer: "freeCodeCamp",
+    when: "Feb 2024",
+    href: "https://freecodecamp.org/certification/safet-imamovic/relational-database-v8",
+  },
+];
+
+const skills = [
+  { group: "Languages", items: ["Rust", "C", "C++", "C#", "TypeScript", "JavaScript", "Python", "Java", "SQL"] },
+  { group: "Web & backend", items: ["React", "Next.js", "FastAPI", "Pydantic", "Django", ".NET", "Tailwind CSS"] },
+  { group: "Data", items: ["PostgreSQL", "Alembic", "Supabase", "Valkey", "IndexedDB"] },
+  { group: "Graphics & simulation", items: ["wgpu / WebGPU", "WebAssembly", "SimPy", "NetworkX", "PyTorch"] },
+  { group: "Game modding", items: ["Fabric", "NeoForge", "Mixins", "GameTest"] },
+  { group: "Tooling", items: ["Git", "GitHub Actions", "Docker Compose", "CMake", "Vitest", "Playwright", "pytest"] },
+];
+
+const languages = [
+  { name: "Bosnian", level: "Native" },
+  { name: "English", level: "C1" },
+];
+---
+
+<Base title="CV" description="Experience, education, teaching, awards and skills.">
+  <section class="section">
+    <h1>CV</h1>
+    <p class="muted">Zenica, Bosnia and Herzegovina · <a href={LINKS.email}>safet.imamovic@unze.ba</a></p>
+    <div class="btn-row">
+      <a class="btn primary" href="/cv.pdf">Download PDF</a>
+      <a class="btn" href={LINKS.linkedin}>LinkedIn ↗</a>
+      <a class="btn" href={LINKS.github}>GitHub ↗</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="h">Experience</h2>
+    {
+      experience.map((e) => (
+        <div class="item">
+          <div class="item-head">
+            <strong>{e.role}</strong>
+            <span class="when mono">{e.when}</span>
+          </div>
+          <p class="sub muted">
+            <a href={e.href}>{e.org}</a> · {e.where}
+          </p>
+          <ul>
+            {e.points.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+          {e.link && (
+            <a class="mono small" href={e.link.href}>
+              {e.link.label} ↗
+            </a>
+          )}
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="h">Education</h2>
+    <p class="muted">
+      <a href={LINKS.ptf}>Polytechnic Faculty</a>, <a href={LINKS.unze}>University of Zenica</a>
+    </p>
+    {
+      education.map((e) => (
+        <div class="item">
+          <div class="item-head">
+            <strong>{e.degree}</strong>
+            <span class="when mono">{e.when}</span>
+          </div>
+          <p class="sub muted">
+            {e.note} {e.thesis && <a href={e.thesis}>Read about it →</a>}
+          </p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="h">Teaching</h2>
+    <p class="muted">Teaching assistant, Software Engineering, <a href={LINKS.ptf}>PTF UNZE</a>.</p>
+    <table>
+      <tbody>
+        {
+          teaching.map((t) => (
+            <tr>
+              <td>{t.course}</td>
+              <td class="muted">{t.detail}</td>
+              <td class="when mono">{t.term}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2 class="h">Publications</h2>
+    <div class="item">
+      <strong>Multi-agent Reinforcement Learning for Autonomous Mobile Robot Coordination</strong>
+      <p class="sub muted">
+        S. Imamović, N. Goran · Advanced Technologies, Systems, and Applications XI (IAT 2026), Springer LNNS vol. 2278
+      </p>
+      <a class="mono small" href="/publications">Details →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="h">Awards & certificates</h2>
+    <table>
+      <tbody>
+        {
+          [...awards, ...certificates].map((a) => (
+            <tr>
+              <td>
+                <a href={a.href}>{a.name}</a>
+              </td>
+              <td class="muted">{a.issuer}</td>
+              <td class="when mono">{a.when}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2 class="h">Skills</h2>
+    <div class="skills">
+      {
+        skills.map((s) => (
+          <div>
+            <p class="eyebrow">{s.group}</p>
+            <div>
+              {s.items.map((i) => (
+                <span class="tag">{i}</span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="h">Languages</h2>
+    <p>{languages.map((l) => `${l.name} (${l.level})`).join(" · ")}</p>
+  </section>
+</Base>
+
+<style>
+  .h {
+    font-size: 1.1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .item {
+    margin: 1.25rem 0;
+  }
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .when {
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .sub {
+    margin: 0.15rem 0 0.4rem;
+    font-size: 0.95rem;
+  }
+  .small {
+    font-size: 0.8rem;
+  }
+  ul {
+    margin: 0.3rem 0;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  td {
+    padding: 0.55rem 0.5rem 0.55rem 0;
+    border-bottom: 1px dashed var(--border);
+    vertical-align: top;
+  }
+  td.when {
+    text-align: right;
+  }
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1rem 1.5rem;
+  }
+  .skills .eyebrow {
+    margin: 0 0 0.35rem;
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import { LINKS } from "../consts";
+
+interface Props {
+  label?: string;
+}
+
+const { label = "Support my mods on Ko-fi" } = Astro.props;
+---
+
+<a class="kofi" href={LINKS.kofi}>☕ {label}</a>
+
+<style>
+  .kofi {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: #ff5e5b;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  .kofi:hover {
+    color: #fff;
+    filter: brightness(1.08);
+  }
+</style>

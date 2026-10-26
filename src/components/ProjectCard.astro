@@ -6,32 +6,46 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, description, status, stack } = project.data;
+const { title, description, status, stack, image, imageAlt, kind } = project.data;
 ---
 
 <a class="card" href={`/projects/${project.id}/`}>
-  <div class="top">
-    <h3>{title}</h3>
-    <span class={`status ${status}`}>{status}</span>
+  {image && <img src={image} alt={imageAlt ?? ""} loading="lazy" />}
+  <div class="body">
+    <div class="top">
+      <h3>{title}</h3>
+      <span class={`status ${status}`}>{status}</span>
+    </div>
+    {kind && <p class="kind mono">{kind}</p>}
+    <p class="muted">{description}</p>
+    <div>{stack.slice(0, 5).map((s) => <span class="tag">{s}</span>)}</div>
   </div>
-  <p class="muted">{description}</p>
-  <div>{stack.map((s) => <span class="tag">{s}</span>)}</div>
 </a>
 
 <style>
   .card {
-    display: block;
-    padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--card);
     text-decoration: none;
+    overflow: hidden;
     transition: border-color 0.15s, transform 0.15s;
   }
   .card:hover {
     color: inherit;
     border-color: var(--accent);
     transform: translateY(-2px);
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+  }
+  .body {
+    padding: 1.1rem 1.25rem;
   }
   .top {
     display: flex;
@@ -42,6 +56,11 @@ const { title, description, status, stack } = project.data;
   h3 {
     margin: 0;
     font-size: 1.05rem;
+  }
+  .kind {
+    margin: 0.15rem 0 0;
+    font-size: 0.75rem;
+    color: var(--accent);
   }
   p {
     margin: 0.4rem 0 0.75rem;
@@ -54,6 +73,7 @@ const { title, description, status, stack } = project.data;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--muted);
+    white-space: nowrap;
   }
   .status::before {
     content: "●";

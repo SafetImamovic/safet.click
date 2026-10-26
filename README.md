@@ -17,7 +17,11 @@ npm run build    # type-check + build to dist/
 | Blog post | `src/content/blog/<slug>.md` |
 | Project | `src/content/projects/<slug>.md` |
 | About | `src/pages/about.astro` |
+| CV (experience, education, teaching, awards, skills) | `src/pages/cv.astro`, PDF at `public/cv.pdf` |
+| Publications | `src/pages/publications.astro` |
 | Name, bio, socials, nav | `src/consts.ts` |
+
+Project frontmatter: `featured: true` puts a card with `image` on the home page; `kofi: true` adds the Ko-fi box; `links` adds extra buttons (Modrinth, CurseForge, docs).
 
 The frontmatter schema lives in `src/content.config.ts`. Set `draft: true` to hide an entry in production; drafts still show in `npm run dev`.
 
