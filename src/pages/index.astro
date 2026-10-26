@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import PostList from "../components/PostList.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import ProjectRow from "../components/ProjectRow.astro";
+import Icon from "../components/Icon.astro";
 import { getPosts, getProjects } from "../lib/content";
 import { LINKS, SOCIALS } from "../consts";
 
@@ -19,7 +20,8 @@ const more = projects.filter((p) => !p.data.featured).slice(0, 5);
     <p class="lead">
       Software engineer and teaching assistant at the <a href={LINKS.ptf}>Polytechnic Faculty</a>,
       <a href={LINKS.unze}>University of Zenica</a>. I build <a href="/projects/enginecv/">EngineCV</a>, a local-first
-      resume builder, along with Minecraft mods played on Modrinth and CurseForge, and render engines in Rust and C.
+      resume builder, along with Minecraft mods on <a href={LINKS.curseforge}>CurseForge</a> and
+      <a href={LINKS.modrinth}>Modrinth</a>, and render engines in Rust and C.
     </p>
     <ul class="facts mono">
       <li>→ MSc student, Software Engineering, PTF UNZE</li>
@@ -32,7 +34,13 @@ const more = projects.filter((p) => !p.data.featured).slice(0, 5);
       <a class="btn" href="/cv.pdf">Download PDF</a>
     </div>
     <p class="socials">
-      {SOCIALS.map((s) => <a href={s.href}>{s.name} ↗</a>)}
+      {
+        SOCIALS.map((s) => (
+          <a href={s.href}>
+            <Icon name={s.icon} /> {s.name}
+          </a>
+        ))
+      }
     </p>
   </section>
 
@@ -82,9 +90,19 @@ const more = projects.filter((p) => !p.data.featured).slice(0, 5);
   .socials {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1.25rem;
+    gap: 0.5rem 1.25rem;
     font-family: var(--mono);
     font-size: 0.85rem;
+  }
+  .socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--muted);
+  }
+  .socials a:hover {
+    color: var(--accent);
   }
   .grid {
     display: grid;

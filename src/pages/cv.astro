@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
 import { LINKS } from "../consts";
 
 const experience = [
@@ -91,9 +92,9 @@ const languages = [
     <h1>CV</h1>
     <p class="muted">Zenica, Bosnia and Herzegovina · <a href={LINKS.email}>safet.imamovic@unze.ba</a></p>
     <div class="btn-row">
-      <a class="btn primary" href="/cv.pdf">Download PDF</a>
-      <a class="btn" href={LINKS.linkedin}>LinkedIn ↗</a>
-      <a class="btn" href={LINKS.github}>GitHub ↗</a>
+      <a class="btn primary" href="/cv.pdf"><Icon name="paper" /> Download PDF</a>
+      <a class="btn" href={LINKS.linkedin}><Icon name="linkedin" /> LinkedIn</a>
+      <a class="btn" href={LINKS.github}><Icon name="github" /> GitHub</a>
     </div>
   </section>
 

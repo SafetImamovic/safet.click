@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import { LINKS } from "../consts";
 
 interface Props {
@@ -8,11 +9,13 @@ interface Props {
 const { label = "Support my mods on Ko-fi" } = Astro.props;
 ---
 
-<a class="kofi" href={LINKS.kofi}>☕ {label}</a>
+<a class="kofi" href={LINKS.kofi}><Icon name="kofi" size={18} /> {label}</a>
 
 <style>
   .kofi {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     background: #ff5e5b;

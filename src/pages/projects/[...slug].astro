@@ -2,7 +2,9 @@
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import KofiButton from "../../components/KofiButton.astro";
+import Icon from "../../components/Icon.astro";
 import { getProjects } from "../../lib/content";
+import { iconFor } from "../../consts";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -21,9 +23,27 @@ const { title, description, status, kind, stack, repo, demo, links, image, image
     {kind && <p class="eyebrow">{kind}</p>}
     <p class="lead muted">{description}</p>
     <div class="btn-row">
-      {demo && <a class="btn primary" href={demo}>Open live ↗</a>}
-      {repo && <a class="btn" href={repo}>Source ↗</a>}
-      {links.map((l) => <a class="btn" href={l.href}>{l.label} ↗</a>)}
+      {
+        demo && (
+          <a class="btn primary" href={demo}>
+            <Icon name="live" /> Open live
+          </a>
+        )
+      }
+      {
+        repo && (
+          <a class="btn" href={repo}>
+            <Icon name="github" /> Source
+          </a>
+        )
+      }
+      {
+        links.map((l) => (
+          <a class="btn" href={l.href}>
+            <Icon name={iconFor(l.label)} /> {l.label}
+          </a>
+        ))
+      }
     </div>
     <p class="meta mono muted">status: {status}</p>
     <div>{stack.map((s) => <span class="tag">{s}</span>)}</div>

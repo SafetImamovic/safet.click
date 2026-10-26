@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
 
 const publications = [
   {
@@ -36,7 +37,7 @@ const publications = [
         <div class="btn-row">
           {p.links.map((l) => (
             <a class="btn" href={l.href}>
-              {l.label}
+              <Icon name={l.label === "Code" ? "github" : "live"} /> {l.label}
             </a>
           ))}
         </div>
