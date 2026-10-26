@@ -1,4 +1,4 @@
-import type { IconName } from "./components/Icon.astro";
+import type { IconName } from "./lib/icons";
 
 export const SITE = {
   title: "Safet Imamović",
@@ -19,13 +19,13 @@ export const LINKS = {
   unze: "https://unze.ba",
 };
 
-export const SOCIALS: { name: string; href: string; icon: IconName }[] = [
-  { name: "GitHub", href: LINKS.github, icon: "github" },
-  { name: "LinkedIn", href: LINKS.linkedin, icon: "linkedin" },
-  { name: "Modrinth", href: LINKS.modrinth, icon: "modrinth" },
-  { name: "CurseForge", href: LINKS.curseforge, icon: "curseforge" },
-  { name: "Ko-fi", href: LINKS.kofi, icon: "kofi" },
-  { name: "Email", href: LINKS.email, icon: "email" },
+export const SOCIALS: { name: string; href: string; icon: IconName; blurb: string }[] = [
+  { name: "GitHub", href: LINKS.github, icon: "github", blurb: "Code for everything on this site" },
+  { name: "LinkedIn", href: LINKS.linkedin, icon: "linkedin", blurb: "Experience and professional profile" },
+  { name: "Modrinth", href: LINKS.modrinth, icon: "modrinth", blurb: "My Minecraft mods" },
+  { name: "CurseForge", href: LINKS.curseforge, icon: "curseforge", blurb: "My Minecraft mods" },
+  { name: "Ko-fi", href: LINKS.kofi, icon: "kofi", blurb: "Support my mods and tools" },
+  { name: "Email", href: LINKS.email, icon: "email", blurb: "safet.imamovic@unze.ba" },
 ];
 
 // Picks an icon for a project link button from its label.
@@ -43,10 +43,11 @@ export function iconFor(label: string): IconName {
   return known[key] ?? "live";
 }
 
-export const NAV = [
-  { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
-  { name: "Publications", href: "/publications" },
-  { name: "CV", href: "/cv" },
-  { name: "About", href: "/about" },
+export const NAV: { name: string; href: string; icon: IconName }[] = [
+  { name: "Projects", href: "/projects", icon: "grid" },
+  { name: "Blog", href: "/blog", icon: "pen" },
+  { name: "Publications", href: "/publications", icon: "paper" },
+  { name: "CV", href: "/cv", icon: "idcard" },
+  { name: "About", href: "/about", icon: "user" },
+  { name: "Links", href: "/links", icon: "link" },
 ];

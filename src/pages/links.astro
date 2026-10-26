@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { SOCIALS } from "../consts";
+
+const more = [
+  { name: "CV (PDF)", href: "/cv.pdf", icon: "paper", blurb: "One-page download" },
+  { name: "RSS", href: "/rss.xml", icon: "rss", blurb: "Follow the blog" },
+] as const;
+---
+
+<Base title="Links" description="Everywhere you can find me.">
+  <section class="section">
+    <h1>Links</h1>
+    <p class="muted">Everywhere you can find me.</p>
+    <div class="links">
+      {
+        [...SOCIALS, ...more].map((l) => (
+          <a class="link" href={l.href}>
+            <Icon name={l.icon} size={22} />
+            <span class="text">
+              <span class="name">{l.name}</span>
+              <span class="blurb muted">{l.blurb}</span>
+            </span>
+            <span class="arrow mono">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+  }
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .link:hover {
+    color: inherit;
+    border-color: var(--accent);
+    transform: translateX(3px);
+  }
+  .link:hover :global(.icon),
+  .link:hover .arrow {
+    color: var(--accent);
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    line-height: 1.35;
+  }
+  .name {
+    font-weight: 600;
+  }
+  .blurb {
+    font-size: 0.85rem;
+  }
+  .arrow {
+    color: var(--muted);
+  }
+</style>
